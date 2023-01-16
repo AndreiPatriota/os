@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-OsApplication<os>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.drei.os.OsApplication",
+            "projectName": "os",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
