@@ -1,5 +1,6 @@
 package com.drei.os.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,12 @@ public class TecnicoService {
 
     public Tecnico findById(Integer id) {
         Optional<Tecnico> registro = repository.findById(id);
-        return registro.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Tecnico.class.getName()));
+        return registro.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + id + ", Tipo: "
+                        + Tecnico.class.getName()));
+    }
+
+    public List<Tecnico> findAll() {
+        return repository.findAll();
     }
 }
