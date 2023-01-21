@@ -16,6 +16,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.drei.os.dtos.TecnicoDTO;
 import com.drei.os.services.TecnicoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/tecnicos")
 public class TecnicoController {
@@ -39,7 +41,7 @@ public class TecnicoController {
     }
 
     @PostMapping
-    public ResponseEntity<TecnicoDTO> create(@RequestBody TecnicoDTO umTecnicoDTO) {
+    public ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO umTecnicoDTO) {
         var umTecnico = service.create(umTecnicoDTO);
         var uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()

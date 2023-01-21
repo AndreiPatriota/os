@@ -6,14 +6,21 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import com.drei.os.domain.Tecnico;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class TecnicoDTO implements Serializable {
     private static final Long serialVersionUID = 1L;
 
     private Integer id;
+
+    @NotEmpty(message = "Campo NOME não fornecido")
     private String nome;
 
     @CPF
+    @NotEmpty(message = "Campo CPF não fornecido")
     private String cpf;
+
+    @NotEmpty(message = "Campo TELEFONE não fornecido")
     private String telefone;
 
     public TecnicoDTO(Tecnico umTecnico) {
