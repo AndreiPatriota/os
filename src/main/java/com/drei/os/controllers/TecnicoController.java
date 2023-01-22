@@ -25,37 +25,37 @@ public class TecnicoController {
     @Autowired
     private TecnicoService service;
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
-        var umTecnicoDTO = new TecnicoDTO(service.findById(id));
-        return ResponseEntity.ok().body(umTecnicoDTO);
+    @GetMapping(value = "/{inId}")
+    public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer inId) {
+        var tecnicoDTO = new TecnicoDTO(service.findById(inId));
+        return ResponseEntity.ok().body(tecnicoDTO);
     }
 
     @GetMapping
     public ResponseEntity<List<TecnicoDTO>> findAll() {
         var listadeTecnicosDTOS = service.findAll()
                 .stream()
-                .map(umTecnico -> new TecnicoDTO(umTecnico))
+                .map(tecnico -> new TecnicoDTO(tecnico))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok().body(listadeTecnicosDTOS);
     }
 
     @PostMapping
-    public ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO umTecnicoDTO) {
-        var umTecnico = service.create(umTecnicoDTO);
+    public ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO inTecnicoDTO) {
+        var tecnico = service.create(inTecnicoDTO);
         var uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(umTecnico.getId()).toUri();
+                .buildAndExpand(tecnico.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<TecnicoDTO> update(@PathVariable Integer id,
-            @Valid @RequestBody TecnicoDTO antigoTecnicoDTO) {
-        var novoTecnicoDTO = new TecnicoDTO(service.update(id, antigoTecnicoDTO));
-        return ResponseEntity.ok().body(novoTecnicoDTO);
+    @PutMapping(value = "/{inId}")
+    public ResponseEntity<TecnicoDTO> update(@PathVariable Integer inId,
+            @Valid @RequestBody TecnicoDTO inTecnicoDTO) {
+        var tecnicoDTOatualizado = new TecnicoDTO(service.update(inId, inTecnicoDTO));
+        return ResponseEntity.ok().body(tecnicoDTOatualizado);
     }
 
 }
