@@ -1,5 +1,6 @@
 package com.drei.os.controllers.exceptions;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -45,6 +46,17 @@ public class ControllerExceptionHandler {
                                 .getFieldErrors()
                                 .stream()
                                 .forEach((x) -> error.setErros(x.getField(), x.getDefaultMessage()));
+
+                return ResponseEntity
+                                .status(HttpStatus.BAD_REQUEST)
+                                .body(error);
+        }
+
+        @ExceptionHandler(DataIntegrityViolationException.class)
+        public ResponseEntity<StandardError> dataIntegrityViolationException(DataIntegrityViolationException e) {
+                var error = new StandardError(System.currentTimeMillis(),
+                                HttpStatus.BAD_REQUEST.value(),
+                                e.getMessage());
 
                 return ResponseEntity
                                 .status(HttpStatus.BAD_REQUEST)

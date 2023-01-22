@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.drei.os.domain.Tecnico;
@@ -48,9 +49,18 @@ public class TecnicoService {
 
         tecnico.setNome(inTecnicoDTO.getNome());
         tecnico.setCpf(inTecnicoDTO.getCpf());
-        tecnico.setTelefone(inTecnicoDTO.getTelefone()); 
+        tecnico.setTelefone(inTecnicoDTO.getTelefone());
 
         return repository.save(tecnico);
+    }
+
+    public void delete(Integer id) {
+        var tecnico = this.findById(id);
+        if (tecnico.getListaDeOrdemdeServicos().size() > 0) {
+            throw new DataIntegrityViolationException("Este técnico possui ordens de serviço atribuídas a ele. Não é possível deletá-lo!");
+        }
+
+        repository.delete(tecnico);
     }
 
     private Tecnico findByCPF(TecnicoDTO inTecnicoDTO) {

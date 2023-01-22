@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,6 +57,12 @@ public class TecnicoController {
             @Valid @RequestBody TecnicoDTO inTecnicoDTO) {
         var tecnicoDTOatualizado = new TecnicoDTO(service.update(inId, inTecnicoDTO));
         return ResponseEntity.ok().body(tecnicoDTOatualizado);
+    }
+
+    @DeleteMapping(value = "/{inId}")
+    public ResponseEntity<Void> delete(@PathVariable Integer inId){
+        service.delete(inId);
+        return ResponseEntity.noContent().build();
     }
 
 }
