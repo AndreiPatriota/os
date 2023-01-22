@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.drei.os.domain.Tecnico;
@@ -38,8 +39,24 @@ public class TecnicoService {
                 umTecnicoDTO.getTelefone()));
     }
 
+    public Tecnico update(Integer id, TecnicoDTO umTecnicoDTO) {
+        var novoTecnico = this.findById(id);
+        var antigoTecnico = this.findByCPF(umTecnicoDTO);
+
+        if (antigoTecnico != null && antigoTecnico.getId() != id) {
+            throw new DataViolationIntegrityException("CPF já cadastrado na base de dados");
+        }
+
+        novoTecnico.setNome(umTecnicoDTO.getNome());
+        novoTecnico.setCpf(umTecnicoDTO.getCpf());
+        novoTecnico.setTelefone(umTecnicoDTO.getTelefone()); 
+
+        return repository.save(novoTecnico);
+    }
+
     private Tecnico findByCPF(TecnicoDTO umTecnicoDTO) {
         var umTecnico = repository.findByCPF(umTecnicoDTO.getCpf());
         return umTecnico != null ? umTecnico : null;
     }
+
 }
