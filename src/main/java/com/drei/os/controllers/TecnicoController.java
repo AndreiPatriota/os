@@ -34,12 +34,12 @@ public class TecnicoController {
 
     @GetMapping
     public ResponseEntity<List<TecnicoDTO>> findAll() {
-        var listadeTecnicosDTOS = service.findAll()
+        var listadeTecnicosDTO = service.findAll()
                 .stream()
                 .map(tecnico -> new TecnicoDTO(tecnico))
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok().body(listadeTecnicosDTOS);
+        return ResponseEntity.ok().body(listadeTecnicosDTO);
     }
 
     @PostMapping

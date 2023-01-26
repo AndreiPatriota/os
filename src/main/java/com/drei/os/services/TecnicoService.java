@@ -1,14 +1,15 @@
 package com.drei.os.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import com.drei.os.domain.Pessoa;
 import com.drei.os.domain.Tecnico;
 import com.drei.os.dtos.TecnicoDTO;
+import com.drei.os.repositories.PessoaRepository;
 import com.drei.os.repositories.TecnicoRepository;
 import com.drei.os.services.exceptions.DataViolationIntegrityException;
 import com.drei.os.services.exceptions.ObjectNotFoundException;
@@ -17,6 +18,8 @@ import com.drei.os.services.exceptions.ObjectNotFoundException;
 public class TecnicoService {
     @Autowired
     private TecnicoRepository repository;
+    @Autowired
+    private PessoaRepository pessoaRepository;
 
     public Tecnico findById(Integer inId) {
         var tecnico = repository.findById(inId);
@@ -41,9 +44,9 @@ public class TecnicoService {
 
     public Tecnico update(Integer inIn, TecnicoDTO inTecnicoDTO) {
         var tecnico = this.findById(inIn);
-        var tecnicoTesteCpf = this.findByCPF(inTecnicoDTO);
+        var pessoaTesteCpf = this.findByCPF(inTecnicoDTO);
 
-        if (tecnicoTesteCpf != null && tecnicoTesteCpf.getId() != inIn) {
+        if (pessoaTesteCpf != null && pessoaTesteCpf.getId() != inIn) {
             throw new DataViolationIntegrityException("CPF já cadastrado na base de dados");
         }
 
@@ -63,9 +66,9 @@ public class TecnicoService {
         repository.delete(tecnico);
     }
 
-    private Tecnico findByCPF(TecnicoDTO inTecnicoDTO) {
-        var tecnico = repository.findByCPF(inTecnicoDTO.getCpf());
-        return tecnico != null ? tecnico : null;
+    private Pessoa findByCPF(TecnicoDTO inTecnicoDTO) {
+        var pessoa = pessoaRepository.findByCPF(inTecnicoDTO.getCpf());
+        return pessoa != null ? pessoa : null;
     }
 
 }

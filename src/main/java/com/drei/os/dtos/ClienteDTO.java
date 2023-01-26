@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 import org.hibernate.validator.constraints.br.CPF;
 
-import com.drei.os.domain.Tecnico;
+import com.drei.os.domain.Cliente;
 
 import jakarta.validation.constraints.NotEmpty;
 
-public class TecnicoDTO implements Serializable {
+public class ClienteDTO implements Serializable {
     private static final Long serialVersionUID = 1L;
 
     private Integer id;
@@ -23,14 +23,14 @@ public class TecnicoDTO implements Serializable {
     @NotEmpty(message = "Campo TELEFONE não fornecido")
     private String telefone;
 
-    public TecnicoDTO(Tecnico inTecnico) {
-        this.id = inTecnico.getId();
-        this.nome = inTecnico.getNome();
-        this.cpf = inTecnico.getCpf();
-        this.telefone = inTecnico.getTelefone();
+    public ClienteDTO() {
     }
 
-    public TecnicoDTO() {
+    public ClienteDTO(Cliente inCliente) {
+        this.id = inCliente.getId();
+        this.nome = inCliente.getNome();
+        this.cpf = inCliente.getCpf();
+        this.telefone = inCliente.getTelefone();
     }
 
     public static Long getSerialversionuid() {
