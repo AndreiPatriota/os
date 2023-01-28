@@ -15,7 +15,7 @@ public class Cliente extends Pessoa implements Serializable {
 
     @OneToMany(mappedBy = "cliente")
     @JsonIgnore 
-    private List<OrdemdeServico> listaDeOrdemdeServicos = new ArrayList<OrdemdeServico>();
+    private List<OrdemdeServico> listadeOrdensdeServicos = new ArrayList<OrdemdeServico>();
 
     public Cliente() {
         super();
@@ -25,11 +25,15 @@ public class Cliente extends Pessoa implements Serializable {
         super(id, nome, cpf, telefone);
     }
 
-    public List<OrdemdeServico> getListaDeOrdemdeServicos() {
-        return listaDeOrdemdeServicos;
+    public List<OrdemdeServico> getListadeOrdensdeServicos() {
+        return listadeOrdensdeServicos;
     }
 
-    public void setListaDeOrdemdeServicos(List<OrdemdeServico> listaDeOrdemdeServicos) {
-        this.listaDeOrdemdeServicos = listaDeOrdemdeServicos;
+    public void setListadeOrdensdeServicos(List<OrdemdeServico> listaDeOrdemdeServicos) {
+        this.listadeOrdensdeServicos = listaDeOrdemdeServicos;
+    }
+
+    public Boolean temOrdemdeServico() {
+        return this.listadeOrdensdeServicos.size() > 0;
     }
 }

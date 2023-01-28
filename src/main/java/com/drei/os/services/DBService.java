@@ -46,7 +46,7 @@ public class DBService {
 
         // liga a ordem ao tecnico/cliente
         tecnico1.getListaDeOrdemdeServicos().add(umaOrdem);
-        umCliente.getListaDeOrdemdeServicos().add(umaOrdem);
+        umCliente.getListadeOrdensdeServicos().add(umaOrdem);
 
         // salva os registros na BD
         clienteRepository.saveAll(Arrays.asList(umCliente));

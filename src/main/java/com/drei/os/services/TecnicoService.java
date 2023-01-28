@@ -17,26 +17,26 @@ import com.drei.os.services.exceptions.ObjectNotFoundException;
 @Service
 public class TecnicoService {
     @Autowired
-    private TecnicoRepository repository;
+    private TecnicoRepository tecnicoRepository;
     @Autowired
     private PessoaRepository pessoaRepository;
 
     public Tecnico findById(Integer inId) {
-        var tecnico = repository.findById(inId);
+        var tecnico = tecnicoRepository.findById(inId);
         return tecnico.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + inId + ", Tipo: "
                         + Tecnico.class.getName()));
     }
 
     public List<Tecnico> findAll() {
-        return repository.findAll();
+        return tecnicoRepository.findAll();
     }
 
     public Tecnico create(TecnicoDTO inTecnicoDTO) {
         if (this.findByCPF(inTecnicoDTO) != null) {
             throw new DataViolationIntegrityException("CPF já cadastrado na base de dados");
         }
-        return repository.save(new Tecnico(null,
+        return tecnicoRepository.save(new Tecnico(null,
                 inTecnicoDTO.getNome(),
                 inTecnicoDTO.getCpf(),
                 inTecnicoDTO.getTelefone()));
@@ -54,7 +54,7 @@ public class TecnicoService {
         tecnico.setCpf(inTecnicoDTO.getCpf());
         tecnico.setTelefone(inTecnicoDTO.getTelefone());
 
-        return repository.save(tecnico);
+        return tecnicoRepository.save(tecnico);
     }
 
     public void delete(Integer id) {
@@ -63,7 +63,7 @@ public class TecnicoService {
             throw new DataIntegrityViolationException("Este técnico possui ordens de serviço atribuídas a ele. Não é possível deletá-lo!");
         }
 
-        repository.delete(tecnico);
+        tecnicoRepository.delete(tecnico);
     }
 
     private Pessoa findByCPF(TecnicoDTO inTecnicoDTO) {
