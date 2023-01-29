@@ -2,9 +2,9 @@ package com.drei.os.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.drei.os.domain.OrdemdeServico;
+import com.drei.os.domain.Ordem;
 
 @Repository
-public interface OrdemdeServicoRepository extends JpaRepository<OrdemdeServico, Integer> {
+public interface OrdemRepository extends JpaRepository<Ordem, Integer> {
 
 }

@@ -25,13 +25,13 @@ public class ClienteController {
     private ClienteService service;
 
     @GetMapping(value = "/{inId}")
-    public ResponseEntity<ClienteDTO> getById(@PathVariable Integer inId) {
+    public ResponseEntity<ClienteDTO> findById(@PathVariable Integer inId) {
         var clienteDTO = new ClienteDTO(service.findById(inId));
         return ResponseEntity.ok().body(clienteDTO);
     }
 
     @GetMapping
-    public ResponseEntity<List<ClienteDTO>> getAll() {
+    public ResponseEntity<List<ClienteDTO>> findAll() {
         var listadeClinetesDTO = service.findAll()
                 .stream()
                 .map((cliente) -> new ClienteDTO(cliente))

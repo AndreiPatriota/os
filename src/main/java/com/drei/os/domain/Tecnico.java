@@ -11,11 +11,11 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Tecnico extends Pessoa implements Serializable{
-    private static final Long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     
     @OneToMany(mappedBy = "tecnico")
     @JsonIgnore
-    private List<OrdemdeServico> listaDeOrdemdeServicos = new ArrayList<OrdemdeServico>();
+    private List<Ordem> listaDeOrdemdeServicos = new ArrayList<Ordem>();
 
     public Tecnico() {
     }
@@ -24,11 +24,11 @@ public class Tecnico extends Pessoa implements Serializable{
         super(id, nome, cpf, telefone);
     }
 
-    public List<OrdemdeServico> getListaDeOrdemdeServicos() {
+    public List<Ordem> getListaDeOrdemdeServicos() {
         return listaDeOrdemdeServicos;
     }
 
-    public void setListaDeOrdemdeServicos(List<OrdemdeServico> listaDeOrdemdeServicos) {
+    public void setListaDeOrdemdeServicos(List<Ordem> listaDeOrdemdeServicos) {
         this.listaDeOrdemdeServicos = listaDeOrdemdeServicos;
     }
     

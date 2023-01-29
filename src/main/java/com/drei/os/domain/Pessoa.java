@@ -1,5 +1,6 @@
 package com.drei.os.domain;
 
+
 import org.hibernate.validator.constraints.br.CPF;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,8 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity(name = "TB_PESSOA")
-public abstract class Pessoa{ 
-
+public abstract class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Faz com que a geração da chave primária fique por conta da base de dados
     private Integer id;

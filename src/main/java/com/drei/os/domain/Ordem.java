@@ -1,5 +1,6 @@
 package com.drei.os.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import com.drei.os.domain.enums.Prioridade;
 import com.drei.os.domain.enums.Status;
@@ -12,8 +13,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity(name = "TB_ORDEM_DE_SERVICO")
-public class OrdemdeServico {
-
+public class Ordem implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -35,7 +37,7 @@ public class OrdemdeServico {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    public OrdemdeServico(Integer id, Prioridade prioridade,
+    public Ordem(Integer id, Prioridade prioridade,
             String observacoes, Status status, Tecnico tecnico, Cliente cliente) {
         this.id = id;
         this.setDataAbertura(LocalDateTime.now());
@@ -46,7 +48,7 @@ public class OrdemdeServico {
         this.cliente = cliente;
     }
 
-    public OrdemdeServico() {
+    public Ordem() {
         this.setDataAbertura(LocalDateTime.now());
         this.setPrioridade(Prioridade.BAIXA);
         this.setStatus(Status.ABERTO);
@@ -132,7 +134,7 @@ public class OrdemdeServico {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        OrdemdeServico other = (OrdemdeServico) obj;
+        Ordem other = (Ordem) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
