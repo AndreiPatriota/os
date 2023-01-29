@@ -15,7 +15,7 @@ import jakarta.persistence.ManyToOne;
 @Entity(name = "TB_ORDEM_DE_SERVICO")
 public class Ordem implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import com.drei.os.domain.Ordem;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 public class OrdemDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -17,9 +20,13 @@ public class OrdemDTO implements Serializable {
     private LocalDateTime dataFechamento;
     
     private Integer prioridade;
-    private String observacoes;
     private Integer status;
+
+    @NotEmpty(message = "Campo OBSERVAÇÕES não foi fornecido")
+    private String observacoes;
+    @NotNull(message = "Campo TÉCNICO não foi fornecido")
     private Integer idTecnico;
+    @NotNull(message = "Campo CLIENTE não foi fornecido")
     private Integer idCliente;
 
     public OrdemDTO(Ordem inOrdem) {

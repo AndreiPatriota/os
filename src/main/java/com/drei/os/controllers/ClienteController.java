@@ -18,6 +18,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.drei.os.dtos.ClienteDTO;
 import com.drei.os.services.ClienteService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteController {
@@ -40,7 +42,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<ClienteDTO> create(@RequestBody ClienteDTO inClienteDTO) {
+    public ResponseEntity<ClienteDTO> create(@Valid @RequestBody ClienteDTO inClienteDTO) {
         var cliente = service.create(inClienteDTO);
         var uri = ServletUriComponentsBuilder
                     .fromCurrentRequest() //caminho http://host/clientes
