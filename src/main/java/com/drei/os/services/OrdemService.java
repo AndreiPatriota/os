@@ -1,5 +1,6 @@
 package com.drei.os.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,12 @@ import org.springframework.stereotype.Service;
 import com.drei.os.domain.Ordem;
 import com.drei.os.domain.enums.Prioridade;
 import com.drei.os.domain.enums.Status;
+import com.drei.os.dtos.AtualizaOrdemDTO;
 import com.drei.os.dtos.OrdemDTO;
 import com.drei.os.repositories.OrdemRepository;
 import com.drei.os.services.exceptions.ObjectNotFoundException;
+
+import jakarta.validation.Valid;
 
 @Service
 public class OrdemService {
@@ -35,12 +39,40 @@ public class OrdemService {
         var tecnico = tecnicoService.findById(inOrdemDTO.getIdTecnico());
         var cliente = clienteService.findById(inOrdemDTO.getIdCliente());
         var ordem = new Ordem(null,
-                            Prioridade.toEnum(inOrdemDTO.getPrioridade()),
-                            inOrdemDTO.getObservacoes(),
-                            Status.toEnum(inOrdemDTO.getStatus()),
-                            tecnico,
-                            cliente);
-        
+                Prioridade.toEnum(inOrdemDTO.getPrioridade()),
+                inOrdemDTO.getObservacoes(),
+                Status.toEnum(inOrdemDTO.getStatus()),
+                tecnico,
+                cliente);
+
+        if (inOrdemDTO.getStatus().equals(2)) {
+            ordem.setDataFechamento(LocalDateTime.now());
+        }
+
+        return repository.save(ordem);
+    }
+
+    public Ordem update(AtualizaOrdemDTO inOrdemDTO, Integer inId) {
+        var ordem = this.findById(inId);
+
+        ordem.setStatus(Status.toEnum(inOrdemDTO.getStatus()));
+        ordem.setPrioridade(inOrdemDTO.getPrioridade() != null
+                ? Prioridade.toEnum(inOrdemDTO.getPrioridade())
+                : ordem.getPrioridade());
+        ordem.setObservacoes(inOrdemDTO.getObservacoes() != null
+                ? inOrdemDTO.getObservacoes()
+                : ordem.getObservacoes());
+        ordem.setCliente(inOrdemDTO.getIdCliente() != null
+                ? clienteService.findById(inOrdemDTO.getIdCliente())
+                : ordem.getCliente());
+        ordem.setTecnico(inOrdemDTO.getIdTecnico() != null
+                ? tecnicoService.findById(inOrdemDTO.getIdTecnico())
+                : ordem.getTecnico());
+
+        if (inOrdemDTO.getStatus().equals(2)) {
+            ordem.setDataFechamento(LocalDateTime.now());
+        }
+
         return repository.save(ordem);
     }
 
