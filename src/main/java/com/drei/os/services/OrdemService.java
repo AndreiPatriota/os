@@ -45,7 +45,7 @@ public class OrdemService {
                 tecnico,
                 cliente);
 
-        if (inOrdemDTO.getStatus().equals(2)) {
+        if (ordem.getStatus().equals(2)) {
             ordem.setDataFechamento(LocalDateTime.now());
         }
 
@@ -69,7 +69,7 @@ public class OrdemService {
                 ? tecnicoService.findById(inOrdemDTO.getIdTecnico())
                 : ordem.getTecnico());
 
-        if (inOrdemDTO.getStatus().equals(2)) {
+        if (ordem.getStatus().equals(2)) {
             ordem.setDataFechamento(LocalDateTime.now());
         }
 
