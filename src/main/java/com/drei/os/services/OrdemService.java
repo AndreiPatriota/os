@@ -14,8 +14,6 @@ import com.drei.os.dtos.OrdemDTO;
 import com.drei.os.repositories.OrdemRepository;
 import com.drei.os.services.exceptions.ObjectNotFoundException;
 
-import jakarta.validation.Valid;
-
 @Service
 public class OrdemService {
     @Autowired
@@ -45,7 +43,7 @@ public class OrdemService {
                 tecnico,
                 cliente);
 
-        if (ordem.getStatus().equals(2)) {
+        if (ordem.getStatus().getCodigo().equals(2)) {
             ordem.setDataFechamento(LocalDateTime.now());
         }
 
@@ -69,7 +67,7 @@ public class OrdemService {
                 ? tecnicoService.findById(inOrdemDTO.getIdTecnico())
                 : ordem.getTecnico());
 
-        if (ordem.getStatus().equals(2)) {
+        if (ordem.getStatus().getCodigo().equals(2)) {
             ordem.setDataFechamento(LocalDateTime.now());
         }
 
