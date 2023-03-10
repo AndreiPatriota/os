@@ -55,7 +55,7 @@ public class ClienteController {
     }
 
     @PutMapping(value = "/{inIn}")
-    public ResponseEntity<ClienteDTO> update(@PathVariable Integer inIn, @RequestBody ClienteDTO inClienteDTO) {
+    public ResponseEntity<ClienteDTO> update(@PathVariable Integer inIn, @Valid @RequestBody ClienteDTO inClienteDTO) {
         var novoClienteDTO = new ClienteDTO(service.update(inIn, inClienteDTO));
         return ResponseEntity.ok().body(novoClienteDTO);
     }
