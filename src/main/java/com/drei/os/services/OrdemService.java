@@ -37,9 +37,9 @@ public class OrdemService {
         var tecnico = tecnicoService.findById(inOrdemDTO.getIdTecnico());
         var cliente = clienteService.findById(inOrdemDTO.getIdCliente());
         var ordem = new Ordem(null,
-                Prioridade.toEnum(inOrdemDTO.getPrioridade()),
+                inOrdemDTO.getPrioridade(),
                 inOrdemDTO.getObservacoes(),
-                Status.toEnum(inOrdemDTO.getStatus()),
+                inOrdemDTO.getStatus(),
                 tecnico,
                 cliente);
 
@@ -53,9 +53,9 @@ public class OrdemService {
     public Ordem update(AtualizaOrdemDTO inOrdemDTO, Integer inId) {
         var ordem = this.findById(inId);
 
-        ordem.setStatus(Status.toEnum(inOrdemDTO.getStatus()));
+        ordem.setStatus(inOrdemDTO.getStatus());
         ordem.setPrioridade(inOrdemDTO.getPrioridade() != null
-                ? Prioridade.toEnum(inOrdemDTO.getPrioridade())
+                ? inOrdemDTO.getPrioridade()
                 : ordem.getPrioridade());
         ordem.setObservacoes(inOrdemDTO.getObservacoes() != null
                 ? inOrdemDTO.getObservacoes()
