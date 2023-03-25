@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.drei.os.domain.Ordem;
+import com.drei.os.domain.enums.Prioridade;
+import com.drei.os.domain.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -71,8 +73,8 @@ public class OrdemDTO implements Serializable {
         this.dataFechamento = dataFechamento;
     }
 
-    public Integer getPrioridade() {
-        return prioridade;
+    public Prioridade getPrioridade() {
+        return Prioridade.toEnum(this.prioridade);
     }
 
     public void setPrioridade(Integer prioridade) {
@@ -87,8 +89,8 @@ public class OrdemDTO implements Serializable {
         this.observacoes = observacoes;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Status getStatus() {
+        return Status.toEnum(this.status);
     }
 
     public void setStatus(Integer status) {

@@ -3,6 +3,8 @@ package com.drei.os.dtos;
 import java.io.Serializable;
 
 import com.drei.os.domain.Ordem;
+import com.drei.os.domain.enums.Prioridade;
+import com.drei.os.domain.enums.Status;
 
 import jakarta.validation.constraints.NotNull;
 
@@ -32,8 +34,8 @@ public class AtualizaOrdemDTO implements Serializable {
         return serialVersionUID;
     }
 
-    public Integer getPrioridade() {
-        return prioridade;
+    public Prioridade getPrioridade() {
+        return Prioridade.toEnum(this.prioridade);
     }
 
     public void setPrioridade(Integer prioridade) {
@@ -48,8 +50,8 @@ public class AtualizaOrdemDTO implements Serializable {
         this.observacoes = observacoes;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Status getStatus() {
+        return Status.toEnum(this.status);
     }
 
     public void setStatus(Integer status) {
