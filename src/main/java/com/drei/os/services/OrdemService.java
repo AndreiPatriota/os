@@ -69,6 +69,8 @@ public class OrdemService {
 
         if (ordem.getStatus().getCodigo().equals(2)) {
             ordem.setDataFechamento(LocalDateTime.now());
+        } else {
+            ordem.setDataFechamento(null);
         }
 
         return repository.save(ordem);
